@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<style>
+    button{
+        margin: 20px;
+    }
+    </style>
+
+<body>
+    <div class="coffeeContainer">
+        <form action="" class="fill">
+            <input type="text" class="water">
+            <input type="text" class="beans">
+            <input type="submit" class="submit" value="Submit">
+        </form>
+        <p class="status">Вы можете использовать значения по умолчанию или поменять их</p>
+        <button class="start">Start</button>
+        <button class="stop">Stop</button>
+    </div>
+
+    <script>
+        function CoffeeMachine(power) {
+            // удельная теплоемкость воды
+            const waterHeatCapacity = 4200
+            // температура воды до которой греем
+            const maxTemp = 90
+            // колличество воды в кофеварке
+            let waterAmount = 0
+            // кол-во зерен
+            let beansAmount = 0;
+            //таймер приготовления
+            let remainingTime, countDown;
+
+
+
+
+            this.fill = function(water, beans) {
+                status.innerHTML = `Воды : ${water}мл, зерен: ${beans}, все готово к запуску`;
+                if (water >= 50) {
+                    waterAmount = water
+                    waterInput.setAttribute("placeholder", `Воды: ${water}мл`);
+                } else {
+                    status.innerHTML = 'Слишком мало воды! Нужно минимум 50мл';
+                }
+                if (beans > 0) {
+                    beansAmount = beans;
+                    beansInput.setAttribute("placeholder", `Зерен: ${beans}`);
+                } else {
+                    status.innerHTML = "Для кофе необходимы зерна!";
+                }
+            }
+
+            const getBoilTime = function() {
+                return ((waterAmount * waterHeatCapacity * maxTemp) / power) + beansAmount * 10;
+            }
+
+            this.launch = function() {
+                remainingTime = getBoilTime();
+                countDown = setInterval(function() {
+                    if (remainingTime > 0) {
+                        status.innerHTML = `Оставшееся время: ${(remainingTime/1000).toFixed(1)} секунд`;
+                        remainingTime -= 100;
+                    } else {
+                        status.innerHTML = 'Ваш кофе готов!';
+                        this.stop();
+                    }
+                }, 100);
+            }
+
+            this.stop = function() {
+                clearInterval(countDown);
+                status.innerHTML = 'Приготовление остановлено..';
+            }
+        }
+
+
+
+        //панель управления кофе машиной
+        const startBtn = document.querySelector(".start");
+        const stopBtn = document.querySelector(".stop");
+        const submitBtn = document.querySelector(".submit");
+        const controlsPanel = document.querySelector(".coffeeContainer");
+        const waterInput = document.querySelector(".water");
+        const beansInput = document.querySelector(".beans");
+        const status = document.querySelector(".status");
+        //обработка нажатий на кнопки
+        controlsPanel.addEventListener("click", function(e) {
+            e.preventDefault();
+            switch (e.target.classList[0]) {
+                case "start":
+                    console.log("start");
+                    vitek.launch();
+                    break;
+                case "stop":
+                    console.log("stop");
+                    vitek.stop();
+                    break;
+                case "submit":
+                    console.log("submit");
+                    vitek.fill(waterInput.value, beansInput.value);
+
+
+                    break;
+
+            }
+        })
+
+
+
+
+
+
+        var vitek = new CoffeeMachine(3000)
+        vitek.fill(70, 50)
+
+    </script>
+</body>
+
+</html>
