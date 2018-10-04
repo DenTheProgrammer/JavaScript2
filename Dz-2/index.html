@@ -19,8 +19,8 @@
 	</form>
 
 	<form class="getUser">
-		<input type="number">
-		<button></button>
+		<input class="userId" type="number" placeholder="ID">
+		<button>Get user by ID</button>
 		<p class="output"></p>
 	</form>
 
@@ -31,6 +31,8 @@
 		const emailInput = document.querySelector(".email");
 		const ageInput = document.querySelector(".age");
 		const output = document.querySelector(".output");
+		const getUserForm = document.querySelector(".getUser");
+		const userId = document.querySelector(".userId");
 
 		userForm.addEventListener("submit", (event) => {
 			event.preventDefault();
@@ -69,6 +71,12 @@
 
 		}
 
+		getUserForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			let ID = userId.value;
+			console.log(`getting user with ID=${ID}`);
+			getUser(ID);
+		})
 	</script>
 </body>
 
