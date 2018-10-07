@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Dz-2</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+	<form class="userForm">
+		<input type="text" class="name" placeholder="name" required>
+		<input type="email" class="email" placeholder="email" required>
+		<input type="number" class="age" placeholder="age" required>
+		<button class="createBtn" type="submit">Create user</button>
+	</form>
+
+	<form class="getUser">
+		<input class="userId" type="number" placeholder="ID">
+		<button>Get user by ID</button>
+		<ol class="output"></ol>
+	</form>
+
+	<button class="getAllUsers" onclick="getAllUsers()">Get All Users</button>
+
+	<style>
+		form {
+			margin: 20px 0;
+		}
+	</style>
+
+
+
+	<script>
+		const userForm = document.querySelector(".userForm");
+		const nameInput = document.querySelector(".name");
+		const emailInput = document.querySelector(".email");
+		const ageInput = document.querySelector(".age");
+		const output = document.querySelector(".output");
+		const getUserForm = document.querySelector(".getUser");
+		const userId = document.querySelector(".userId");
+
+		userForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			console.log("submit");
+
+			let user = {
+				name: nameInput.value,
+				email: emailInput.value,
+				age: ageInput.value
+			}
+			console.log(user);
+
+			let jsonUser = JSON.stringify(user);
+			console.log(jsonUser);
+
+			sendUser(jsonUser);
+
+		})
+
+		const sendUser = (message) => {
+			return fetch('http://89.108.65.123/user', {
+				method: 'POST',
+				body: message
+			})
+		}
+
+		const getUser = (i) => {
+			return fetch('http://89.108.65.123/user')
+				.then(result => {
+					return result.text()
+				})
+				.then(text => {
+					let parsedUser = (JSON.parse(text)[i - 1]);
+					output.innerHTML = `Имя: ${parsedUser.name}, Мейл: ${parsedUser.email}, Возраст: ${parsedUser.age}`;
+				})
+
+		}
+
+		getUserForm.addEventListener("submit", (event) => {
+			event.preventDefault();
+			let ID = userId.value;
+			console.log(`getting user with ID=${ID}`);
+			getUser(ID);
+		})
+
+
+		const getAllUsers = () => {
+			console.log("getting all users..");
+			output.innerHTML = "";
+			fetch('http://89.108.65.123/user')
+				.then(result => {
+					return result.text()
+				})
+				.then(text => {
+					for (let i = 0; i < JSON.parse(text).length; i++) {
+						let parsedUser = (JSON.parse(text)[i]);
+						output.innerHTML += `<li><b>Имя:</b> ${parsedUser.name}, <b>Мейл:</b> ${parsedUser.email}, <b>Возраст:</b> ${parsedUser.age}</li>`;
+					}
+				})
+
+		}
+	</script>
+</body>
+
+</html>
