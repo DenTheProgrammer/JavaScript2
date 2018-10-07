@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RegExp</title>
+</head>
+
+<body>
+    <form class="regExpForm">
+        <input class="name" type="text">
+        <input class="phone" type="tel" placeholder="+7(000)000-0000" >
+        <input class="email" type="email">
+        <button class="submit" type="submit">Submit</button>
+    </form>
+
+
+
+    <script>
+        let form = document.querySelector(".regExpForm");
+        let nameInput = document.querySelector(".name");
+        let phoneInput = document.querySelector(".phone");
+        let emailInput = document.querySelector(".email");
+        let submitBtn = document.querySelector(".submit");
+
+
+        form.addEventListener("submit", (e) => {
+            console.log(nameInput.value.search(/\W/gi));
+            if (nameInput.value.search(/[^a-zа-яё\s\-]/gim) !== -1) {//имя в несколько слов может быть и содержать "-"
+                e.preventDefault();
+                nameInput.style.border = "solid 2px red";
+            } else if (phoneInput.value.search(/\+\d\(\d{3}\)\d{3}-\d{4}/gi) === -1) {
+                e.preventDefault();
+                phoneInput.style.border = "solid 2px red";
+
+            } else if (emailInput.value.search(/\w+(\.|-)?\w+\@\w+\.\w+/gi) === -1) {
+                e.preventDefault();
+                emailInput.style.border = "solid 2px red";
+            }
+        })
+    </script>
+</body>
+</html>
