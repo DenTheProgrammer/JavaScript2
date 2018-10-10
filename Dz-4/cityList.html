@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <title>Autocomplete</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="cities.json"></script>
 </head>
 
 <body>
+   <style>
+       form{
+           display: flex;
+           flex-direction: column;
+           width: 250px;
+       }
+    </style>
     <form class="regExpForm">
-        <input class="name" type="text">
+        <input class="name" type="text" placeholder="Name">
         <input class="phone" type="tel" placeholder="+7(000)000-0000">
-        <input class="email" type="email">
-        <!--		<input class="city" type="text">-->
+        <input class="email" type="email" placeholder="Email">
         <select name="city" id="city">
 
 
@@ -46,17 +53,20 @@
             }
         })
 
-        $.ajax({
-            url: "http://89.108.65.123/cities",
-            success: (data) => {
-                let cities;
-                cities = JSON.parse(data)
+        
+        
+//        $.ajax({
+//            url: "http://89.108.65.123/cities",
+//            success: (data) => {
+//                let cities;
+//                cities = JSON.parse(data)
                 for (let i = 0; i < cities.length; i++) {
                     citySelect.innerHTML += `<option>${cities[i].name}</option>`;
                 }
-            }
-
-        });
+//            }
+//
+//        });
+        
     </script>
 </body>
 
