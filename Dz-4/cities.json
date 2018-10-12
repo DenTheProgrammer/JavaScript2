@@ -1,4 +1,4 @@
-let cities = [{
+[{
     "subject": "Хакасия",
     "district": "Сибирский",
     "name": "Абаза",
