@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Autocomplete</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!--    <script src="cities.json"></script>-->
+</head>
+
+<body>
+    <style>
+        form{
+           display: flex;
+           flex-direction: column;
+           width: 250px;
+       }
+    </style>
+    <form class="regExpForm">
+        <input class="name" type="text" placeholder="Name">
+        <input class="phone" type="tel" placeholder="+7(000)000-0000">
+        <input class="email" type="email" placeholder="Email">
+        <input class="city" type="text" placeholder="City">
+
+        <button class="submit" type="submit">Submit</button>
+        <div class="hints"></div>
+    </form>
+
+
+
+    <script>
+        let form = document.querySelector(".regExpForm");
+        
+        let nameInput = document.querySelector(".name");
+        let phoneInput = document.querySelector(".phone");
+        let emailInput = document.querySelector(".email");
+        let submitBtn = document.querySelector(".submit");
+        let citySelect = document.querySelector(".city");
+        let hints = document.querySelector(".hints");
+
+
+        form.addEventListener("submit", (e) => {
+            console.log(nameInput.value.search(/\W/gi));
+            if (nameInput.value.search(/[^a-zа-яё\s\-]/gim) !== -1) { //имя в несколько слов может быть и содержать "-"
+                e.preventDefault();
+                nameInput.style.border = "solid 2px red";
+            } else if (phoneInput.value.search(/\+\d\(\d{3}\)\d{3}-\d{4}/gi) === -1) {
+                e.preventDefault();
+                phoneInput.style.border = "solid 2px red";
+
+            } else if (emailInput.value.search(/\w+(\.|-)?\w+\@\w+\.\w+/gi) === -1) {
+                e.preventDefault();
+                emailInput.style.border = "solid 2px red";
+            }
+        })
+
+
+
+
+        let citiesArr = [];
+        $.ajax({
+            url: "http://89.108.65.123/cities",
+            success: (data) => {
+                let cities;
+                cities = JSON.parse(data);
+                for (let i = 0; i < cities.length; i++) {
+                    citiesArr.push(cities[i].name);
+                }
+                //                console.log(citiesArr);
+            }
+        });
+
+
+
+        citySelect.addEventListener("input", function() {
+            hints.innerHTML = "";
+            let RegExInput = this.value,
+                hintsOutput = "";
+            RegExInput = new RegExp(RegExInput, "gi");
+            //            console.log(RegExInput);
+            for (let i = 0; i < citiesArr.length; i++) {
+                if (citiesArr[i].search(RegExInput) !== -1) {
+                    hintsOutput += `<div class="cityHint">${citiesArr[i]}</div>`;
+                }
+            }
+            hints.innerHTML = hintsOutput;
+        })
+    </script>
+</body>
+
+</html>
