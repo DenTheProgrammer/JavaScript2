@@ -15,6 +15,9 @@
            flex-direction: column;
            width: 250px;
        }
+        .hints{
+            cursor: pointer;
+        }
     </style>
     <form class="regExpForm">
         <input class="name" type="text" placeholder="Name">
@@ -30,7 +33,7 @@
 
     <script>
         let form = document.querySelector(".regExpForm");
-        
+
         let nameInput = document.querySelector(".name");
         let phoneInput = document.querySelector(".phone");
         let emailInput = document.querySelector(".email");
@@ -84,6 +87,12 @@
                 }
             }
             hints.innerHTML = hintsOutput;
+        })
+
+        form.addEventListener("click", function(e) {
+            if (!e.target.classList.contains("cityHint")) return;
+            citySelect.value = e.target.innerHTML;
+            hints.innerHTML="";
         })
     </script>
 </body>
