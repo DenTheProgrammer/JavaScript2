@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Autocomplete</title>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 </head>
 
 <body>
@@ -23,11 +26,16 @@
             cursor: pointer;
         }
     </style>
-    
+
     <header>
-        
+        <div class="slider">
+            <img src="sliderImg/car.jpg" alt="">
+            <img src="sliderImg/plane.jpg" alt="">
+            <img src="sliderImg/ship.jpg" alt="">
+            <img src="sliderImg/train.jpg" alt="">
+        </div>
     </header>
-    
+
     <form class="regExpForm">
         <input class="name" type="text" placeholder="Name">
         <input class="phone" type="tel" placeholder="+7(000)000-0000">
@@ -42,8 +50,13 @@
 
 
     <script>
-        $( "#dialog" ).dialog({ autoOpen: false });
-        
+        $(".slider").slick({
+            dots: true,
+        });
+        $("#dialog").dialog({
+            autoOpen: false
+        });
+
         let form = document.querySelector(".regExpForm");
 
         let nameInput = document.querySelector(".name");
@@ -60,18 +73,18 @@
                 e.preventDefault();
                 nameInput.style.border = "solid 2px red";
                 $(".name").effect("bounce");
-                $( "#dialog" ).dialog( "open" );
+                $("#dialog").dialog("open");
             } else if (phoneInput.value.search(/\+\d\(\d{3}\)\d{3}-\d{4}/gi) === -1) {
                 e.preventDefault();
                 phoneInput.style.border = "solid 2px red";
                 $(".phone").effect("bounce");
-                $( "#dialog" ).dialog( "open" );
+                $("#dialog").dialog("open");
 
             } else if (emailInput.value.search(/\w+(\.|-)?\w+\@\w+\.\w+/gi) === -1) {
                 e.preventDefault();
                 emailInput.style.border = "solid 2px red";
                 $(".email").effect("bounce");
-                $( "#dialog" ).dialog( "open" );
+                $("#dialog").dialog("open");
             }
         })
 
@@ -110,7 +123,7 @@
         form.addEventListener("click", function(e) {
             if (!e.target.classList.contains("cityHint")) return;
             citySelect.value = e.target.innerHTML;
-            hints.innerHTML="";
+            hints.innerHTML = "";
         })
     </script>
 </body>
