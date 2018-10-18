@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>Autocomplete</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!--    <script src="cities.json"></script>-->
+    <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
 </head>
 
 <body>
@@ -15,10 +16,18 @@
            flex-direction: column;
            width: 250px;
        }
+        input{
+            margin-bottom: 20px;
+        }
         .hints{
             cursor: pointer;
         }
     </style>
+    
+    <header>
+        
+    </header>
+    
     <form class="regExpForm">
         <input class="name" type="text" placeholder="Name">
         <input class="phone" type="tel" placeholder="+7(000)000-0000">
@@ -27,11 +36,14 @@
 
         <button class="submit" type="submit">Submit</button>
         <div class="hints"></div>
+        <div id="dialog" title="Ошибка ввода">Введите корректные данные пожалуйста</div>
     </form>
 
 
 
     <script>
+        $( "#dialog" ).dialog({ autoOpen: false });
+        
         let form = document.querySelector(".regExpForm");
 
         let nameInput = document.querySelector(".name");
@@ -47,13 +59,19 @@
             if (nameInput.value.search(/[^a-zа-яё\s\-]/gim) !== -1) { //имя в несколько слов может быть и содержать "-"
                 e.preventDefault();
                 nameInput.style.border = "solid 2px red";
+                $(".name").effect("bounce");
+                $( "#dialog" ).dialog( "open" );
             } else if (phoneInput.value.search(/\+\d\(\d{3}\)\d{3}-\d{4}/gi) === -1) {
                 e.preventDefault();
                 phoneInput.style.border = "solid 2px red";
+                $(".phone").effect("bounce");
+                $( "#dialog" ).dialog( "open" );
 
             } else if (emailInput.value.search(/\w+(\.|-)?\w+\@\w+\.\w+/gi) === -1) {
                 e.preventDefault();
                 emailInput.style.border = "solid 2px red";
+                $(".email").effect("bounce");
+                $( "#dialog" ).dialog( "open" );
             }
         })
 
