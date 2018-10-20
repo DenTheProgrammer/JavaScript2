@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Autocomplete</title>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    
     <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="mySlider/slider.css">
 
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 </head>
 
 <body>
@@ -29,10 +31,22 @@
 
     <header>
         <div class="slider">
-            <img src="sliderImg/car.jpg" alt="">
-            <img src="sliderImg/plane.jpg" alt="">
-            <img src="sliderImg/ship.jpg" alt="">
-            <img src="sliderImg/train.jpg" alt="">
+            <div class="slider-container">
+                <button class="prev">&larr;Prev</button>
+                <div class="slider-slides">
+                    <img class="img1 active" src="img/car.jpg" alt="">
+                    <img class="img2" src="img/plane.jpg" alt="">
+                    <img class="img3" src="img/ship.jpg" alt="">
+                    <img class="img4" src="img/train.jpg" alt="">
+                </div>
+                <button class="next">Next&rarr;</button>
+            </div>
+            <div class="slider-preview">
+                <img class="img1 active" src="img/car.jpg" alt="">
+                <img class="img2" src="img/plane.jpg" alt="">
+                <img class="img3" src="img/ship.jpg" alt="">
+                <img class="img4" src="img/train.jpg" alt="">
+            </div>
         </div>
     </header>
 
@@ -50,9 +64,6 @@
 
 
     <script>
-        $(".slider").slick({
-            dots: true,
-        });
         $("#dialog").dialog({
             autoOpen: false
         });
@@ -125,7 +136,9 @@
             citySelect.value = e.target.innerHTML;
             hints.innerHTML = "";
         })
+
     </script>
+    <script src="mySlider/slider.js"></script>
 </body>
 
 </html>
