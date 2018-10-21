@@ -1,4 +1,5 @@
 let path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 let conf = {
     entry: "./src/index.js",
@@ -10,6 +11,14 @@ let conf = {
     devServer: {
         overlay: true
     },
+    plugins: [
+    new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            //            filename: "[name].css",
+            //            chunkFilename: "[id].css"
+        })
+  ],
     module: {
         rules: [
             {
@@ -30,7 +39,16 @@ let conf = {
                 "css-loader", // translates CSS into CommonJS
                 "sass-loader" // compiles Sass to CSS, using Node Sass by default
             ]
-        }
+        },
+            {
+                test: /\.(html)$/,
+                use: {
+                    loader: 'html-loader',
+                    options: {
+                        attrs: [':data-src']
+                    }
+                }
+}
         ]
     },
     devtool: "eval-sourcemap"
