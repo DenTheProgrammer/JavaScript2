@@ -1,9 +1,12 @@
 import $ from "jquery";
+import "./css/style.scss";
 
 $(function () {
-    $('.test').html('testLol228');
+    $('.test').html('jqueryTest');
 });
 
 
-let a = 5;
-alert(5);
+
+	let b =8;
+	console.log(b);
+
