@@ -1,5 +1,7 @@
 //import $ from "jquery";
+import "../index.html";
 import "./css/style.scss";
+//import "./index.html";/// ?????????????
 
 //$(function () {
 //    $('.test').html('jqueryTest');
