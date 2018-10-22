@@ -1,0 +1,8 @@
+$colorRed: red;
+
+.sass{
+    color: blue;
+    .span{
+        color: $colorRed;
+    }
+}
