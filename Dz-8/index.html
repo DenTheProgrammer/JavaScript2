@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./mocha&chai/mocha.css">
+    <script src="./mocha&chai/mocha.js"></script>
+    <script>
+        mocha.setup("bdd");
+    </script>
+    <script src="./mocha&chai/chai.js"></script>
+    <script>
+        let assert = chai.assert;
+    </script>
+</head>
+
+<body>
+
+
+
+<script>
+   function multiply(a,b){
+       return a*b;
+   }
+   function reverse(inputStr){
+       let length=inputStr.length,
+           inputInArr,
+           outputInArr=[],
+           outStr;
+       inputInArr=inputStr.split("");
+       console.log(inputInArr);
+       for(let i=length-1;i>=0;i--){
+            outputInArr.push(inputInArr[i]);
+       }
+       outStr=outputInArr.join("");
+       return outStr;
+   }
+
+   function arrSum(arr) {
+       let sum=0;
+       for(let i=0;i<arr.length;i++){
+           if(!isFinite(arr[i]))return "ERROR";
+           sum+=arr[i];
+       }
+       return sum;
+   }
+</script>
+
+
+
+<script src="tests.js"></script>
+<div id="mocha"></div>
+<script>
+    mocha.run();
+</script>
+</body>
+</html>
